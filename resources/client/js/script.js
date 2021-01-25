@@ -1,6 +1,7 @@
 import Deck from "./deck.js"
 
 const CARD_VALUE_MAP = {
+    "1": 1,
     "2": 2,
     "3": 3,
     "4": 4,
@@ -9,11 +10,7 @@ const CARD_VALUE_MAP = {
     "7": 7,
     "8": 8,
     "9": 9,
-    "10": 10,
-    J: 11,
-    Q: 12,
-    K: 13,
-    A: 14
+    "10": 10
 }
 
 const computerCardSlot = document.querySelector(".computer-card-slot")
@@ -100,7 +97,15 @@ function updateDeckCount() {
 }
 
 function isRoundWinner(cardOne, cardTwo) {
-    return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
+    if(CARD_VALUE_MAP[cardOne.color]===CARD_VALUE_MAP[cardTwo.color]){
+        return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
+    }else{
+        if(CARD_VALUE_MAP[cardOne.color]==="red" && CARD_VALUE_MAP[cardOne.color]==="black") return true;
+        else if(CARD_VALUE_MAP[cardOne.color]==="yellow" && CARD_VALUE_MAP[cardOne.color]==="red") return true;
+        else if(CARD_VALUE_MAP[cardOne.color]==="black" && CARD_VALUE_MAP[cardOne.color]==="yellow") return true;
+        else return false;
+    }
+
 }
 
 function isGameOver(deck) {
