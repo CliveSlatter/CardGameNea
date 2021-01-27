@@ -29,6 +29,10 @@ export default class Deck {
         this.cards.push(card)
     }
 
+    clear(){
+        for(let x of this.cards) this.cards.shift()
+    }
+
     shuffle() {
         for (let i = this.numberOfCards - 1; i > 0; i--) {
             const newIndex = Math.floor(Math.random() * (i + 1))
@@ -36,17 +40,18 @@ export default class Deck {
             this.cards[newIndex] = this.cards[i]
             this.cards[i] = oldValue
         }
+        console.log(this.cards)
     }
 }
 
 class Card {
     constructor(colour, value) {
-        this.suit = colour
+        this.colour = colour
         this.value = value
     }
 
     get color() {
-        return this.suit === "r" ? "red" : this.suit==="y" ? "yellow": "black"
+        return this.colour === "r" ? "red" : this.colour==="y" ? "yellow": "black"
     }
 
     getHTML() {
