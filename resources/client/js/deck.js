@@ -29,6 +29,10 @@ export default class Deck {
         this.cards.push(card)
     }
 
+    deckPush(card){
+        this.cards.push(card)
+    }
+
     clear(){
         for(let x of this.cards) this.cards.shift()
     }
