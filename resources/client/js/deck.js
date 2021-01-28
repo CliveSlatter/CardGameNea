@@ -72,6 +72,13 @@ class Card {
     }
 }
 
+class EmptyDeck{
+    constructor(colour, value){
+        this.colour=colour
+        this.value=value
+    }
+}
+
 function freshDeck() {
     return COLOURS.flatMap(colour => {
         return VALUES.map(value => {

@@ -20,7 +20,7 @@ const mainDeckElement = document.querySelector(".main-deck")
 const text = document.querySelector(".text")
 
 let player1Deck, player2Deck, mainDeck, inRound, stop, player1Card, player2Card, isDraw
-
+let round = 1
 /*document.addEventListener("click", () => {
     if (stop) {
         startGame()
@@ -90,19 +90,22 @@ function checkWinner() {
         text.innerText = "Player 1 wins"
         player1Deck.push(player2Card)
         player1Deck.push(player1Card)
-    } else {
-        text.innerText = "Draw"
-        isDraw = true
-        mainDeck.push(player2Card)
-        mainDeck.push(player1Card)
     }
-    console.log(mainDeck.numberOfCards)
+    console.log("Round: "+round)
+    round++
     if (isGameOver(mainDeck)) {
-        text.innerText = "You Lose!!"
-        stop = true
-    } else if (isGameOver(mainDeck)) {
-        text.innerText = "You Win!!"
-        stop = true
+        console.log("Gets here")
+        if(player1Deck.numberOfCards>player2Deck.numberOfCards){
+            text.innerText = "Player 1 Wins with "+ player1Deck.numberOfCards +" cards!!"
+            stop = true
+        }else if(player1Deck.numberOfCards<player2Deck.numberOfCards){
+            text.innerText = "Player 2 Wins with "+ player2Deck.numberOfCards +" cards!!"
+            stop = true
+        }else{
+            text.innerText = "Game is a draw!!"
+            stop = true
+        }
+
     }
 }
 
@@ -112,12 +115,12 @@ function updateDeckCount() {
 }
 
 function isRoundWinner(cardOne, cardTwo) {
-    if(CARD_VALUE_MAP[cardOne.color]===CARD_VALUE_MAP[cardTwo.color]){
+    if(CARD_VALUE_MAP[cardOne.colour]===CARD_VALUE_MAP[cardTwo.colour]){
         return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
     }else{
-        if(CARD_VALUE_MAP[cardOne.color].valueOf() === "red" && CARD_VALUE_MAP[cardTwo.color].valueOf()==="black") return true;
-        else if(CARD_VALUE_MAP[cardOne.color].valueOf()==="yellow" && CARD_VALUE_MAP[cardTwo.color].valueOf()==="red") return true;
-        else if(CARD_VALUE_MAP[cardOne.color].valueOf() === "black" && CARD_VALUE_MAP[cardTwo.color].valueOf() === "yellow") return true;
+        if(CARD_VALUE_MAP[cardOne.colour] === "red" && CARD_VALUE_MAP[cardTwo.colour]==="black") return true;
+        else if(CARD_VALUE_MAP[cardOne.colour]==="yellow" && CARD_VALUE_MAP[cardTwo.colour]==="red") return true;
+        else if(CARD_VALUE_MAP[cardOne.colour]=== "black" && CARD_VALUE_MAP[cardTwo.colour] === "yellow") return true;
         return false;
     }
 
