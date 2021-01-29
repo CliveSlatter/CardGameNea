@@ -20,7 +20,7 @@ const mainDeckElement = document.querySelector(".main-deck")
 const text = document.querySelector(".text")
 
 let player1Deck, player2Deck, mainDeck, inRound, stop, player1Card, player2Card, isDraw
-let round = 1
+
 /*document.addEventListener("click", () => {
     if (stop) {
         startGame()
@@ -34,6 +34,11 @@ let round = 1
     }
 })*/
 
+/*
+    if the game is in a stop state (stop is true) then starts a new game. If the number of cards MOD 2 is zero e.g. 30, 28, 26 etc then
+    it is player one's turn to draw otherwise it is player two's turn.
+ */
+
 document.addEventListener("click", () => {
     if (stop) {
         startGame()
@@ -45,30 +50,24 @@ document.addEventListener("click", () => {
     } else {
         if(mainDeck.numberOfCards % 2 === 0) playerOneTurn()
         else playerTwoTurn()
-        //flipCards()
     }
 })
 
+// if a click event is not encountered the game starts as soon as the page loads
+
 startGame()
+
 function startGame() {
     const deck = new Deck()
     deck.shuffle()
     mainDeck = new Deck(deck.cards)
-    player2Deck = new Deck()
-    player1Deck = new Deck()
-    player1Deck.clear()
-    player2Deck.clear()
-    //player1Deck = new Deck(deck.cards)
-    //player2Deck.clear()
-    //player1Deck.clear()
-    //const deckMidpoint = Math.ceil(deck.numberOfCards / 2)
-    //playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))
-    //computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))
     inRound = false
     stop = false
 
     cleanBeforeRound()
 }
+
+// Resets the player 1 and player 2 card slots and clears the text. Updates the number of cards in the main deck <div> block.
 
 function cleanBeforeRound() {
     inRound = false
@@ -91,10 +90,7 @@ function checkWinner() {
         player1Deck.push(player2Card)
         player1Deck.push(player1Card)
     }
-    console.log("Round: "+round)
-    round++
     if (isGameOver(mainDeck)) {
-        console.log("Gets here")
         if(player1Deck.numberOfCards>player2Deck.numberOfCards){
             text.innerText = "Player 1 Wins with "+ player1Deck.numberOfCards +" cards!!"
             stop = true
@@ -111,8 +107,15 @@ function checkWinner() {
 
 function updateDeckCount() {
     mainDeckElement.innerText = mainDeck.numberOfCards
-    //playerDeckElement.innerText = playerDeck.numberOfCards
 }
+
+/*
+    Defines the rules of the game, first checking if the colours of the cards match and then compare the value. CARD_VALUE_MAP references the
+    value as a string from the cards and returns the integer equivalent.
+
+    If the cards are different colours then the code checks the colour of the player 1 card against the player 2 card returning true if player 1s card
+    is the winner (TRUE) otherwise returns the player 2 card wins (FALSE)
+ */
 
 function isRoundWinner(cardOne, cardTwo) {
     if(CARD_VALUE_MAP[cardOne.colour]===CARD_VALUE_MAP[cardTwo.colour]){
@@ -126,9 +129,13 @@ function isRoundWinner(cardOne, cardTwo) {
 
 }
 
+// When the number of cards in the main deck reaches zero the game restarts (at the moment)
+
 function isGameOver(deck) {
     return deck.numberOfCards === 0
 }
+
+// When the first card in a round is drawn it is placed in the player 1 card slot <div> block
 
 function playerOneTurn(){
     console.log("Player one has had a turn")
@@ -136,6 +143,10 @@ function playerOneTurn(){
     player1CardSlot.appendChild(player1Card.getHTML())
     //cleanBeforeRound()
 }
+
+/*  When the second card in a round is drawn the card is placed in the player 2 card slot <div> block
+    and then compares the cards to determine the winning card.
+ */
 
 function playerTwoTurn(){
     console.log("Player two has had a turn")
