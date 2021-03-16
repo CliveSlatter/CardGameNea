@@ -17,11 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //openDatabase("PeaSees.db");
-
-
         ResourceConfig config = new ResourceConfig();
-
 
         config.packages("controllers");
         config.register(MultiPartFeature.class);

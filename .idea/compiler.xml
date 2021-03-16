@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CardGameNea" />
+        <module name="CardGameNEA" />
       </profile>
     </annotationProcessing>
   </component>

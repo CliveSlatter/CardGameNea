@@ -52,6 +52,16 @@ export default class Deck {
     Creates the structure for the cards being used in the deck, including the colours used. Each card will be stored as an object
     within the flattened map data structure i.e. 10 sets of cards for each colour in one structure rather than three.
  */
+class blankDeck{
+    constructor(cards = null){
+        this.cards = cards
+    }
+
+    push(card){
+        this.cards.push(card)
+    }
+
+}
 
 class Card {
     constructor(colour, value) {

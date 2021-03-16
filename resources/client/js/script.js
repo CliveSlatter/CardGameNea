@@ -1,4 +1,5 @@
 import Deck from "./deck.js"
+import blankDeck from "./deck.js"
 
 const CARD_VALUE_MAP = {
     "1": 1,
@@ -59,12 +60,29 @@ startGame()
 
 function startGame() {
     const deck = new Deck()
+    const deck2 = new Deck()
+    const deck3 = new Deck()
     deck.shuffle()
     mainDeck = new Deck(deck.cards)
+    player1Deck = new Deck(deck2.cards)
+    player2Deck = new Deck(deck3.cards)
+    clearCards(player1Deck)
+    clearCards(player2Deck)
+    console.log(player1Deck)
+    console.log(player2Deck)
     inRound = false
     stop = false
 
     cleanBeforeRound()
+}
+
+function clearCards(deck){
+    if(deck.numberOfCards === 0) {
+        return
+    } else {
+        deck.pop()
+        clearCards(deck)
+    }
 }
 
 // Resets the player 1 and player 2 card slots and clears the text. Updates the number of cards in the main deck <div> block.
@@ -90,6 +108,8 @@ function checkWinner() {
         player1Deck.push(player2Card)
         player1Deck.push(player1Card)
     }
+    console.log(player2Deck)
+    console.log(player1Deck)
     if (isGameOver(mainDeck)) {
         if(player1Deck.numberOfCards>player2Deck.numberOfCards){
             text.innerText = "Player 1 Wins with "+ player1Deck.numberOfCards +" cards!!"
